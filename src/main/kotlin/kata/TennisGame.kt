@@ -7,7 +7,8 @@ data class TennisGame(val pointsPlayerOne: Int = 0, val pointsPlayerTwo: Int = 0
         fun playerOneWinsPoint(game: TennisGame): TennisGame {
             val playersOnePoints = game.pointsPlayerOne.inc()
             val playersOneScore = if (playersOnePoints == 1) "15" else if (playersOnePoints == 2) "30" else "40"
-            return TennisGame(playersOnePoints, 0, "$playersOneScore-Love")
+            val playersTwoScore = if (game.pointsPlayerTwo == 0) "Love" else if (game.pointsPlayerTwo == 1) "15" else if (game.pointsPlayerTwo == 2) "30" else "40"
+            return TennisGame(playersOnePoints, game.pointsPlayerTwo, "$playersOneScore-$playersTwoScore")
         }
 
         fun playerTwoWinsPoint(game: TennisGame): TennisGame {
