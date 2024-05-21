@@ -6,16 +6,23 @@ data class TennisGame(val pointsPlayerOne: Int = 0, val pointsPlayerTwo: Int = 0
 
         fun playerOneWinsPoint(game: TennisGame): TennisGame {
             val playersOnePoints = game.pointsPlayerOne.inc()
-            val playersOneScore = if (playersOnePoints == 1) "15" else if (playersOnePoints == 2) "30" else "40"
-            val playersTwoScore = if (game.pointsPlayerTwo == 0) "Love" else if (game.pointsPlayerTwo == 1) "15" else if (game.pointsPlayerTwo == 2) "30" else "40"
+            val playersOneScore = toScore(playersOnePoints)
+            val playersTwoScore = toScore(game.pointsPlayerTwo)
             return TennisGame(playersOnePoints, game.pointsPlayerTwo, "$playersOneScore-$playersTwoScore")
         }
 
         fun playerTwoWinsPoint(game: TennisGame): TennisGame {
             val playersTwoPoints = game.pointsPlayerTwo.inc()
-            val playersTwoScore = if (playersTwoPoints == 1) "15" else if (playersTwoPoints == 2) "30" else "40"
-            val playersOneScore = if (game.pointsPlayerOne == 0) "Love" else if (game.pointsPlayerOne == 1) "15" else if (game.pointsPlayerOne == 2) "30" else "40"
+            val playersTwoScore = toScore(playersTwoPoints)
+            val playersOneScore = toScore(game.pointsPlayerOne)
             return TennisGame(game.pointsPlayerOne, playersTwoPoints, "$playersOneScore-$playersTwoScore")
+        }
+
+        private fun toScore(points: Int) = when (points) {
+            0 -> "Love"
+            1 -> "15"
+            2 -> "30"
+            else -> "40"
         }
     }
 }
