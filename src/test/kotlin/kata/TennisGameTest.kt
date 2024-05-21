@@ -2,7 +2,9 @@ package kata
 
 import io.kotest.matchers.shouldBe
 import kata.TennisGame.Companion.playerOneWinsPoint
+import org.junit.jupiter.api.DynamicTest.dynamicTest
 import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.TestFactory
 
 class TennisGameTest {
 
@@ -13,31 +15,17 @@ class TennisGameTest {
         result shouldBe TennisGame(pointsPlayerOne = 0, pointsPlayerTwo = 0, score = "Love-Love")
     }
 
-    @Test
-    fun `should increase the score from Love to Fifteen when a player wins the first point`() {
-        val game = TennisGame()
+    @TestFactory
+    fun `increasing the score when a player wins a point`() =
+        listOf(
+            Triple(1, 0, "15-Love"),
+            Triple(2, 0, "30-Love"),
+            Triple(3, 0, "40-Love")
+        ).map { (pointsP1, pointsP2, expected) ->
+            dynamicTest("should score with $expected when player one scores $pointsP1 and player two scores $pointsP2 ") {
+                val result = (1..pointsP1).fold(TennisGame()) { game, _ -> playerOneWinsPoint(game) }
 
-        val result = playerOneWinsPoint(game)
-
-        result shouldBe TennisGame(1, 0, "15-Love")
-    }
-
-    @Test
-    fun `should increase the score from Fifteen to Thirteen when a player wins the second point`() {
-        val result = TennisGame()
-            .let(::playerOneWinsPoint)
-            .let(::playerOneWinsPoint)
-
-        result shouldBe TennisGame(2, 0, "30-Love")
-    }
-
-    @Test
-    fun `should increase the score from Thirteen to Fourteen when a player wins the third point`() {
-        val result = TennisGame()
-            .let(::playerOneWinsPoint)
-            .let(::playerOneWinsPoint)
-            .let(::playerOneWinsPoint)
-
-        result shouldBe TennisGame(3, 0, "40-Love")
-    }
+                result shouldBe TennisGame(pointsP1, pointsP2, expected)
+            }
+        }
 }
