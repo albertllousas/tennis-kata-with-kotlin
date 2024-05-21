@@ -11,5 +11,9 @@ data class TennisGame(val pointsPlayerOne: Int = 0, val pointsPlayerTwo: Int = 0
                 return TennisGame(2, 0, "30-Love")
             else return TennisGame(3, 0, "40-Love")
         }
+
+        fun playerTwoWinsPoint(game: TennisGame): TennisGame {
+            return TennisGame(0, 1, "Love-15")
+        }
     }
 }

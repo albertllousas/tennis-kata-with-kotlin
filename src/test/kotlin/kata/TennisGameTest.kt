@@ -2,6 +2,7 @@ package kata
 
 import io.kotest.matchers.shouldBe
 import kata.TennisGame.Companion.playerOneWinsPoint
+import kata.TennisGame.Companion.playerTwoWinsPoint
 import org.junit.jupiter.api.DynamicTest.dynamicTest
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.TestFactory
@@ -20,10 +21,12 @@ class TennisGameTest {
         listOf(
             Triple(1, 0, "15-Love"),
             Triple(2, 0, "30-Love"),
-            Triple(3, 0, "40-Love")
+            Triple(3, 0, "40-Love"),
+            Triple(0, 1, "Love-15"),
         ).map { (pointsP1, pointsP2, expected) ->
             dynamicTest("should score with $expected when player one scores $pointsP1 and player two scores $pointsP2 ") {
                 val result = (1..pointsP1).fold(TennisGame()) { game, _ -> playerOneWinsPoint(game) }
+                    .let { (1..pointsP2).fold(it) { game, _ -> playerTwoWinsPoint(game) } }
 
                 result shouldBe TennisGame(pointsP1, pointsP2, expected)
             }
