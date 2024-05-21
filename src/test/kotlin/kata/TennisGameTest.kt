@@ -19,7 +19,7 @@ class TennisGameTest {
 
         val result = playerOneWinsPoint(game)
 
-        result shouldBe TennisGame(1, 0, "Fifteen-Love")
+        result shouldBe TennisGame(1, 0, "15-Love")
     }
 
     @Test
@@ -28,6 +28,16 @@ class TennisGameTest {
             .let(::playerOneWinsPoint)
             .let(::playerOneWinsPoint)
 
-        result shouldBe TennisGame(2, 0, "Thirteen-Love")
+        result shouldBe TennisGame(2, 0, "30-Love")
+    }
+
+    @Test
+    fun `should increase the score from Thirteen to Fourteen when a player wins the third point`() {
+        val result = TennisGame()
+            .let(::playerOneWinsPoint)
+            .let(::playerOneWinsPoint)
+            .let(::playerOneWinsPoint)
+
+        result shouldBe TennisGame(3, 0, "40-Love")
     }
 }
