@@ -6,18 +6,18 @@ data class TennisGame(val pointsPlayerOne: Int = 0, val pointsPlayerTwo: Int = 0
 
         fun playerOneWinsPoint(game: TennisGame): TennisGame {
             if (game.pointsPlayerOne == 0)
-                return TennisGame(1, 0, "15-Love")
+                return TennisGame(game.pointsPlayerOne.inc(), 0, "15-Love")
             else if (game.pointsPlayerOne == 1)
-                return TennisGame(2, 0, "30-Love")
-            else return TennisGame(3, 0, "40-Love")
+                return TennisGame(game.pointsPlayerOne.inc(), 0, "30-Love")
+            else return TennisGame(game.pointsPlayerOne.inc(), 0, "40-Love")
         }
 
         fun playerTwoWinsPoint(game: TennisGame): TennisGame {
             if (game.pointsPlayerTwo == 0)
-                return TennisGame(0, 1, "Love-15")
+                return TennisGame(0, game.pointsPlayerTwo.inc(), "Love-15")
             else if (game.pointsPlayerTwo == 1)
-                return TennisGame(0, 2, "Love-30")
-            return TennisGame(0, 3, "Love-40")
+                return TennisGame(0, game.pointsPlayerTwo.inc(), "Love-30")
+            return TennisGame(0, game.pointsPlayerTwo.inc(), "Love-40")
         }
     }
 }
