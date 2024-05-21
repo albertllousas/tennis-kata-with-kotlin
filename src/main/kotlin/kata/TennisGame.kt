@@ -5,7 +5,9 @@ data class TennisGame(val pointsPlayerOne: Int = 0, val pointsPlayerTwo: Int = 0
     companion object {
 
         fun playerOneWinsPoint(game: TennisGame): TennisGame {
-            return TennisGame(1, 0, "Fifteen-Love")
+            if (game.pointsPlayerOne == 0)
+                return TennisGame(1, 0, "Fifteen-Love")
+            else return TennisGame(2, 0, "Thirteen-Love")
         }
     }
 }

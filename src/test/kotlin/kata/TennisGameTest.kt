@@ -21,4 +21,13 @@ class TennisGameTest {
 
         result shouldBe TennisGame(1, 0, "Fifteen-Love")
     }
+
+    @Test
+    fun `should increase the score from Fifteen to Thirteen when a player wins the second point`() {
+        val result = TennisGame()
+            .let(::playerOneWinsPoint)
+            .let(::playerOneWinsPoint)
+
+        result shouldBe TennisGame(2, 0, "Thirteen-Love")
+    }
 }
