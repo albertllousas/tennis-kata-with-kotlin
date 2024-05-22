@@ -4,18 +4,16 @@ data class TennisGame(val pointsPlayerOne: Int = 0, val pointsPlayerTwo: Int = 0
 
     companion object {
 
-        fun playerOneWinsPoint(game: TennisGame): TennisGame {
-            val playersOnePoints = game.pointsPlayerOne.inc()
-            val playersOneScore = toScore(playersOnePoints)
-            val playersTwoScore = toScore(game.pointsPlayerTwo)
-            return TennisGame(playersOnePoints, game.pointsPlayerTwo, "$playersOneScore-$playersTwoScore")
-        }
+        fun playerOneWinsPoint(game: TennisGame): TennisGame =
+            playerWinsPoint(game.pointsPlayerOne.inc(), game.pointsPlayerTwo)
 
-        fun playerTwoWinsPoint(game: TennisGame): TennisGame {
-            val playersTwoPoints = game.pointsPlayerTwo.inc()
-            val playersTwoScore = toScore(playersTwoPoints)
-            val playersOneScore = toScore(game.pointsPlayerOne)
-            return TennisGame(game.pointsPlayerOne, playersTwoPoints, "$playersOneScore-$playersTwoScore")
+        fun playerTwoWinsPoint(game: TennisGame): TennisGame =
+            playerWinsPoint(game.pointsPlayerOne, game.pointsPlayerTwo.inc())
+
+        private fun playerWinsPoint(p1: Int, p2: Int): TennisGame {
+            val p1Score = toScore(p1)
+            val p2Score = toScore(p2)
+            return TennisGame(p1, p2, "$p1Score-$p2Score")
         }
 
         private fun toScore(points: Int) = when (points) {
