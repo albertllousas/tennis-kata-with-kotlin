@@ -39,6 +39,7 @@ class TennisGameTest {
             Triple(4, 5, "Advantage player two"),
             Triple(4, 0, "Player one wins"),
             Triple(0, 4, "Player two wins"),
+            Triple(3, 5, "Player two wins"),
         ).map { (pointsP1, pointsP2, expected) ->
             dynamicTest("should score with $expected when player one scores $pointsP1 and player two scores $pointsP2 ") {
                 val result = (1..pointsP2).fold(TennisGame()) { game, _ -> playerTwoWinsPoint(game) }
