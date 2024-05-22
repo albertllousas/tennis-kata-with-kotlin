@@ -12,9 +12,8 @@ data class TennisGame(val pointsPlayerOne: Int = 0, val pointsPlayerTwo: Int = 0
 
         private fun playerWinsPoint(p1: Int, p2: Int): TennisGame {
             if (p1 == 3 && p2 == 3) return TennisGame(p1, p2, "Deuce")
-            val p1Score = toScore(p1)
-            val p2Score = toScore(p2)
-            return TennisGame(p1, p2, "$p1Score-$p2Score")
+            if (p1 == 4 && p2 == 3) return TennisGame(p1, p2, "Advantage player one")
+            return TennisGame(p1, p2, "${toScore(p1)}-${toScore(p2)}")
         }
 
         private fun toScore(points: Int) = when (points) {
